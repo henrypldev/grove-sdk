@@ -3,6 +3,7 @@ export type { GroveProviderProps } from './provider'
 export { useQuery } from './useQuery'
 export { useMutation } from './useMutation'
 export { useQuerySubscription } from './useQuerySubscription'
+export { queryKey } from './queryKeys'
 export type {
 	RouteMap,
 	MutationMap,

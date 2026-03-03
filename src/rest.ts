@@ -1,4 +1,5 @@
 import type { Team, TeamActivity } from './shared/types'
+import { toFormData } from './shared/formData'
 
 export class GroveRestClient {
 	private baseUrl: string
@@ -16,14 +17,11 @@ export class GroveRestClient {
 			task: string
 			files?: File[]
 		}): Promise<Team | { teams: Team[] }> => {
-			const formData = new FormData()
-			formData.append('repoId', params.repoId)
-			formData.append('task', params.task)
-			if (params.files) {
-				for (const file of params.files) {
-					formData.append('files', file)
-				}
-			}
+			const formData = toFormData({
+				repoId: params.repoId,
+				task: params.task,
+				files: params.files,
+			})
 			const res = await fetch(`${this.baseUrl}/v2/teams`, {
 				method: 'POST',
 				body: formData,
@@ -39,14 +37,13 @@ export class GroveRestClient {
 			id: string
 			text: string
 			files?: File[]
+			answers?: Record<string, string>
 		}): Promise<TeamActivity> => {
-			const formData = new FormData()
-			formData.append('text', params.text)
-			if (params.files) {
-				for (const file of params.files) {
-					formData.append('files', file)
-				}
-			}
+			const formData = toFormData({
+				text: params.text,
+				files: params.files,
+				answers: params.answers,
+			})
 			const res = await fetch(
 				`${this.baseUrl}/v2/teams/${params.id}/messages`,
 				{

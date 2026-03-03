@@ -42,11 +42,18 @@ export function useQuerySubscription<E extends SubscriptionEvent>(
 			if (eventChannel !== channel && event !== 'team:update') return
 
 			setData(eventData)
-			setHistory((prev) => [...prev.slice(-MAX_HISTORY + 1), eventData])
+			setHistory((prev) => {
+				if (prev.length >= MAX_HISTORY) {
+					return [...prev.slice(1), eventData]
+				}
+				return [...prev, eventData]
+			})
 
 			const paths = INVALIDATION_MAP[event]
 			if (paths) {
 				for (const path of paths) {
+					// Use [path] prefix to invalidate all queries for this route
+					// regardless of their params/query values
 					queryClient.invalidateQueries({ queryKey: [path] })
 				}
 			}

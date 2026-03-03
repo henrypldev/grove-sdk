@@ -10,6 +10,7 @@ export type {
 	AgentTask,
 	SetupLogEntry,
 	DashboardTeam,
+	DashboardMetrics,
 	DashboardResult,
 	UsageResult,
 } from './types'

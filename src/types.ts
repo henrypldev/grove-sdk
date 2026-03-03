@@ -16,6 +16,7 @@ import type {
 
 export type {
 	AgentTask,
+	DashboardMetrics,
 	DashboardResult,
 	DashboardTeam,
 	SetupLogEntry,

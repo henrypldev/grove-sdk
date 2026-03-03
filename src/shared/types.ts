@@ -187,9 +187,16 @@ export interface DashboardTeam {
 	lastCommit: string
 }
 
+export interface DashboardMetrics {
+	teamsCompleted: number
+	agentsCompleted: number
+	tasksCompleted: number
+	eventCounts: Record<string, number>
+}
+
 export interface DashboardResult {
 	teams: DashboardTeam[]
-	metrics: Record<string, unknown>
+	metrics: DashboardMetrics
 }
 
 export interface UsageResult {
