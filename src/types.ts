@@ -63,7 +63,7 @@ export interface RpcMethods {
 			repos: Array<{ full_name: string; name: string; private: boolean }>
 		}
 	}
-	'github:orgs': { params: {}; result: { orgs: Array<{ login: string }> } }
+	'github:orgs': { params: {}; result: { orgs: Array<{ name: string }> } }
 	'github:org-repos': {
 		params: { org: string }
 		result: {

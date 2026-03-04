@@ -33,7 +33,7 @@ export interface RouteMap {
     response: { repos: Array<{ full_name: string; name: string; private: boolean }> }
   }
   '/v2/github/repos/orgs': {
-    response: { orgs: Array<{ login: string }> }
+    response: { orgs: Array<{ name: string }> }
   }
   '/v2/github/repos/orgs/:org': {
     params: { org: string }
