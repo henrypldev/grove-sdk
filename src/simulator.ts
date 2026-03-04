@@ -47,7 +47,7 @@ export class SimulatorClient extends TypedEmitter<SimulatorEventMap> {
 			}
 			try {
 				const msg = JSON.parse(event.data as string)
-				if (msg.type === 'booted') {
+				if (msg.type === 'booted' && msg.deviceId === this.options.deviceId) {
 					this.emit('booted', {
 						deviceId: msg.deviceId,
 						width: msg.width,
@@ -105,7 +105,7 @@ export class SimulatorClient extends TypedEmitter<SimulatorEventMap> {
 
 	private send(msg: Record<string, unknown>): void {
 		if (this.ws?.readyState === WebSocket.OPEN) {
-			this.ws.send(JSON.stringify(msg))
+			this.ws.send(JSON.stringify({ ...msg, deviceId: this.options.deviceId }))
 		}
 	}
 }
