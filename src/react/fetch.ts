@@ -32,5 +32,5 @@ export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> 
 		throw new Error((err as any).error ?? `HTTP ${res.status}`)
 	}
 	const text = await res.text()
-	return text ? JSON.parse(text) : undefined
+	return text ? JSON.parse(text) : (undefined as T)
 }
