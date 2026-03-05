@@ -11,6 +11,17 @@ export class GroveRestClient {
 			.replace(/\/ws\/?$/, '')
 	}
 
+	identity = {
+		get: async (): Promise<{ tailscaleId: number | null }> => {
+			const res = await fetch(`${this.baseUrl}/v2/identity`)
+			if (!res.ok) {
+				const err = await res.json()
+				throw new Error(err.error ?? `HTTP ${res.status}`)
+			}
+			return res.json()
+		},
+	}
+
 	teams = {
 		create: async (params: {
 			repoId: string
