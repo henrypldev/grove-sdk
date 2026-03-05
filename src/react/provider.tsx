@@ -34,8 +34,14 @@ export function GroveProvider({ url, children, autoConnect = true, deviceType }:
 	const client = clientRef.current
 
 	const [status, setStatus] = useState<ConnectionStatus>(client.status)
+	const disconnectTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
 	useEffect(() => {
+		// Cancel any pending disconnect from a previous cleanup (React Strict Mode
+		// unmounts and remounts effects — deferring disconnect lets the remount
+		// cancel it so the WebSocket connection survives the double-invoke).
+		clearTimeout(disconnectTimerRef.current)
+
 		const onConnected = () => setStatus('connected')
 		const onDisconnected = () => setStatus('disconnected')
 		const onReconnecting = () => setStatus('connecting')
@@ -52,7 +58,7 @@ export function GroveProvider({ url, children, autoConnect = true, deviceType }:
 			client.off('connected', onConnected)
 			client.off('disconnected', onDisconnected)
 			client.off('reconnecting', onReconnecting)
-			client.disconnect()
+			disconnectTimerRef.current = setTimeout(() => client.disconnect(), 0)
 		}
 	}, [client, autoConnect])
 
