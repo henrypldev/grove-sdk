@@ -1,0 +1,19 @@
+{
+	"hooks": {
+		"PostToolUse": [
+			{
+				"matcher": "Edit|Write",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bun check:fix"
+					},
+					{
+						"type": "command",
+						"command": "bun typecheck"
+					}
+				]
+			}
+		]
+	}
+}
