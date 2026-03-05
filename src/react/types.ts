@@ -30,14 +30,14 @@ export interface RouteMap {
     response: { directories: string[] }
   }
   '/v2/github/repos': {
-    response: { repos: Array<{ full_name: string; name: string; private: boolean }> }
+    response: { repos: Array<{ fullName: string; name: string; private: boolean }> }
   }
   '/v2/github/repos/orgs': {
     response: { orgs: Array<{ name: string }> }
   }
   '/v2/github/repos/orgs/:org': {
     params: { org: string }
-    response: { repos: Array<{ full_name: string; name: string; private: boolean }> }
+    response: { repos: Array<{ fullName: string; name: string; private: boolean }> }
   }
   '/v2/repos': {
     response: Repo[]

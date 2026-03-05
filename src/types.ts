@@ -60,14 +60,14 @@ export interface RpcMethods {
 	'github:repos': {
 		params: {}
 		result: {
-			repos: Array<{ full_name: string; name: string; private: boolean }>
+			repos: Array<{ fullName: string; name: string; private: boolean }>
 		}
 	}
 	'github:orgs': { params: {}; result: { orgs: Array<{ name: string }> } }
 	'github:org-repos': {
 		params: { org: string }
 		result: {
-			repos: Array<{ full_name: string; name: string; private: boolean }>
+			repos: Array<{ fullName: string; name: string; private: boolean }>
 		}
 	}
 
