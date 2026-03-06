@@ -25,7 +25,10 @@ export function buildUrl(
 }
 
 /** Fetch JSON with error handling. Throws on non-ok responses. */
-export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
+export async function fetchJson<T>(
+	url: string,
+	init?: RequestInit,
+): Promise<T> {
 	const res = await fetch(url, init)
 	if (!res.ok) {
 		const err = await res.json().catch(() => ({}))

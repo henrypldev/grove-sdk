@@ -48,7 +48,9 @@ describe('GroveRestClient', () => {
 				new Response(JSON.stringify({ error: 'bad request' }), { status: 400 }),
 			),
 		) as any
-		expect(client.teams.create({ repoId: 'r1', task: 'test' })).rejects.toThrow('bad request')
+		expect(client.teams.create({ repoId: 'r1', task: 'test' })).rejects.toThrow(
+			'bad request',
+		)
 	})
 
 	test('teams.sendMessage sends to correct URL', async () => {

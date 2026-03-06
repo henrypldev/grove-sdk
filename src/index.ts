@@ -1,19 +1,19 @@
 export { GroveClient } from './client'
-export { SimulatorClient } from './simulator'
-export type { SimulatorOptions, SimulatorEventMap } from './simulator'
 export type { RpcNamespaces } from './rpc'
+export * from './shared/types'
+export type { SimulatorEventMap, SimulatorOptions } from './simulator'
+export { SimulatorClient } from './simulator'
 export type {
-	GroveClientOptions,
-	ConnectionStatus,
-	ServerEventMap,
-	RpcMethods,
-	SpawnableRole,
-	TeamDetail,
 	AgentTask,
-	SetupLogEntry,
-	DashboardTeam,
+	ConnectionStatus,
 	DashboardMetrics,
 	DashboardResult,
+	DashboardTeam,
+	GroveClientOptions,
+	RpcMethods,
+	ServerEventMap,
+	SetupLogEntry,
+	SpawnableRole,
+	TeamDetail,
 	UsageResult,
 } from './types'
-export * from './shared/types'

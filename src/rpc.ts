@@ -17,8 +17,7 @@ export function buildRpcNamespaces(call: RpcCaller) {
 			},
 			cloneDir: {
 				get: () => call('config:clone-dir:get', {}),
-				set: (p: { cloneDirectory: string }) =>
-					call('config:clone-dir:set', p),
+				set: (p: { cloneDirectory: string }) => call('config:clone-dir:set', p),
 			},
 			listDirs: (p: { path: string }) => call('config:list-dirs', p),
 		},
@@ -86,16 +85,12 @@ export function buildRpcNamespaces(call: RpcCaller) {
 				list: (p: { id: string }) => call('teams:agents:list', p),
 				spawn: (p: { id: string; role: SpawnableRole }) =>
 					call('teams:agents:spawn', p),
-				respawn: (p: {
-					teamId: string
-					agentId: string
-					prompt?: string
-				}) => call('teams:agents:respawn', p),
+				respawn: (p: { teamId: string; agentId: string; prompt?: string }) =>
+					call('teams:agents:respawn', p),
 			},
 			activity: (p: { id: string; since?: number }) =>
 				call('teams:activity', p),
-			logs: (p: { id: string; since?: number }) =>
-				call('teams:logs', p),
+			logs: (p: { id: string; since?: number }) => call('teams:logs', p),
 			prd: (p: { id: string }) => call('teams:prd', p),
 			designDoc: (p: { id: string }) => call('teams:design-doc', p),
 			tasks: (p: { id: string }) => call('teams:tasks', p),
@@ -103,8 +98,7 @@ export function buildRpcNamespaces(call: RpcCaller) {
 			setup: {
 				retry: (p: { id: string }) => call('teams:setup:retry', p),
 				cancel: (p: { id: string }) => call('teams:setup:cancel', p),
-				stop: (p: { id: string; step: number }) =>
-					call('teams:setup:stop', p),
+				stop: (p: { id: string; step: number }) => call('teams:setup:stop', p),
 				start: (p: { id: string; step: number }) =>
 					call('teams:setup:start', p),
 				logs: (p: { id: string }) => call('teams:setup:logs', p),
@@ -120,8 +114,7 @@ export function buildRpcNamespaces(call: RpcCaller) {
 				stop: (p: { id: string }) => call('teams:scripts:stop', p),
 			},
 			devServer: {
-				start: (p: { id: string }) =>
-					call('teams:dev-server:start', p),
+				start: (p: { id: string }) => call('teams:dev-server:start', p),
 				stop: (p: { id: string }) => call('teams:dev-server:stop', p),
 				stdin: (p: { id: string; input: string }) =>
 					call('teams:dev-server:stdin', p),

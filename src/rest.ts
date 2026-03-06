@@ -1,5 +1,5 @@
-import type { Team, TeamActivity } from './shared/types'
 import { toFormData } from './shared/formData'
+import type { Team, TeamActivity } from './shared/types'
 
 export class GroveRestClient {
 	private baseUrl: string

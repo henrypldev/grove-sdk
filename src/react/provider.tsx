@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react'
 import { GroveClient } from '../client'
 import type { ConnectionStatus } from '../types'
 
@@ -17,7 +24,12 @@ export interface GroveProviderProps {
 	deviceType?: 'mac' | 'mobile'
 }
 
-export function GroveProvider({ url, children, autoConnect = true, deviceType }: GroveProviderProps) {
+export function GroveProvider({
+	url,
+	children,
+	autoConnect = true,
+	deviceType,
+}: GroveProviderProps) {
 	const wsUrl = useMemo(() => {
 		const u = url.replace('https://', 'wss://').replace('http://', 'ws://')
 		return u.endsWith('/ws') ? u : `${u}/ws`
@@ -62,7 +74,10 @@ export function GroveProvider({ url, children, autoConnect = true, deviceType }:
 		}
 	}, [client, autoConnect])
 
-	const value = useMemo(() => ({ client, baseUrl, status }), [client, baseUrl, status])
+	const value = useMemo(
+		() => ({ client, baseUrl, status }),
+		[client, baseUrl, status],
+	)
 
 	return <GroveContext.Provider value={value}>{children}</GroveContext.Provider>
 }

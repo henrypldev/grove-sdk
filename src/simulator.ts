@@ -9,7 +9,12 @@ export interface SimulatorOptions {
 
 export interface SimulatorEventMap {
 	frame: (data: ArrayBuffer) => void
-	booted: (info: { deviceId: string; width: number; height: number; scale: number }) => void
+	booted: (info: {
+		deviceId: string
+		width: number
+		height: number
+		scale: number
+	}) => void
 	error: (message: string) => void
 	connected: () => void
 	disconnected: () => void
@@ -40,7 +45,7 @@ export class SimulatorClient extends TypedEmitter<SimulatorEventMap> {
 			this.emit('connected')
 		}
 
-		this.ws.onmessage = (event) => {
+		this.ws.onmessage = event => {
 			if (event.data instanceof ArrayBuffer) {
 				this.emit('frame', event.data)
 				return
@@ -72,9 +77,20 @@ export class SimulatorClient extends TypedEmitter<SimulatorEventMap> {
 
 	disconnect(): void {
 		if (!this.ws) return
-		this.ws.onclose = null
-		this.ws.close()
+		const ws = this.ws
 		this.ws = null
+		ws.onopen = null
+		ws.onmessage = null
+		ws.onerror = null
+		ws.onclose = null
+		if (ws.readyState === WebSocket.CONNECTING) {
+			// Wait for the connection to open before closing to avoid
+			// "WebSocket is closed before the connection is established" errors
+			// (e.g. React Strict Mode double-invoking effects in development).
+			ws.addEventListener('open', () => ws.close())
+		} else {
+			ws.close()
+		}
 		this.emit('disconnected')
 	}
 

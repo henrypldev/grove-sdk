@@ -1,7 +1,7 @@
-import type { WsClientMessage, WsServerMessage } from './shared/types'
 import { TypedEmitter } from './events'
 import { GroveRestClient } from './rest'
 import { buildRpcNamespaces, type RpcNamespaces } from './rpc'
+import type { WsClientMessage, WsServerMessage } from './shared/types'
 import type {
 	ConnectionStatus,
 	GroveClientOptions,
@@ -57,9 +57,7 @@ export class GroveClient extends TypedEmitter<ServerEventMap> {
 		}
 
 		// Build RPC namespaces
-		const ns = buildRpcNamespaces((method, params) =>
-			this.rpc(method, params),
-		)
+		const ns = buildRpcNamespaces((method, params) => this.rpc(method, params))
 		this.version = ns.version
 		this.config = ns.config
 		this.github = ns.github
@@ -118,7 +116,7 @@ export class GroveClient extends TypedEmitter<ServerEventMap> {
 
 			this.ws.onopen = onOpen
 			this.ws.onerror = onError
-			this.ws.onmessage = (event) => this.handleMessage(event)
+			this.ws.onmessage = event => this.handleMessage(event)
 			this.ws.onclose = () => this.handleClose()
 		})
 	}
@@ -258,8 +256,7 @@ export class GroveClient extends TypedEmitter<ServerEventMap> {
 	}
 
 	private scheduleReconnect(): void {
-		const delay =
-			this.options.reconnectBaseDelay * 2 ** this.reconnectAttempt
+		const delay = this.options.reconnectBaseDelay * 2 ** this.reconnectAttempt
 		this.reconnectAttempt++
 		this.emit('reconnecting', this.reconnectAttempt)
 

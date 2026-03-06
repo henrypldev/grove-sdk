@@ -42,7 +42,7 @@ export function useQuerySubscription<E extends SubscriptionEvent>(
 			if (eventChannel !== channel && event !== 'team:update') return
 
 			setData(eventData)
-			setHistory((prev) => {
+			setHistory(prev => {
 				if (prev.length >= MAX_HISTORY) {
 					return [...prev.slice(1), eventData]
 				}

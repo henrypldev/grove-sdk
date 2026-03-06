@@ -1,6 +1,6 @@
 import {
-	useQuery as useTanstackQuery,
 	type UseQueryResult,
+	useQuery as useTanstackQuery,
 } from '@tanstack/react-query'
 import { buildUrl, fetchJson } from './fetch'
 import { useGrove } from './provider'
@@ -41,9 +41,15 @@ export function useQuery<P extends keyof RouteMap>(
 
 	return useTanstackQuery({
 		queryKey: queryKey(path, params, query),
-		queryFn: () => fetchJson<RouteResponse<P>>(
-			buildUrl(baseUrl, path, params as Record<string, string>, query as Record<string, unknown>),
-		),
+		queryFn: () =>
+			fetchJson<RouteResponse<P>>(
+				buildUrl(
+					baseUrl,
+					path,
+					params as Record<string, string>,
+					query as Record<string, unknown>,
+				),
+			),
 		enabled: options?.enabled,
 		refetchInterval: options?.refetchInterval,
 		staleTime: options?.staleTime,

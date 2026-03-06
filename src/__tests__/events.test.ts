@@ -8,7 +8,10 @@ type TestEvents = {
 
 // Subclass to expose protected emit
 class TestEmitter extends TypedEmitter<TestEvents> {
-	public doEmit<K extends keyof TestEvents>(event: K, ...args: Parameters<TestEvents[K]>): void {
+	public doEmit<K extends keyof TestEvents>(
+		event: K,
+		...args: Parameters<TestEvents[K]>
+	): void {
 		this.emit(event, ...args)
 	}
 }

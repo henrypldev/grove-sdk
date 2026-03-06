@@ -1,11 +1,16 @@
 import {
-	useMutation as useTanstackMutation,
 	type UseMutationResult,
+	useMutation as useTanstackMutation,
 } from '@tanstack/react-query'
+import { toFormData } from '../shared/formData'
 import { buildUrl, fetchJson } from './fetch'
 import { useGrove } from './provider'
-import { toFormData } from '../shared/formData'
-import type { MutationBody, MutationKey, MutationParams, MutationResponse } from './types'
+import type {
+	MutationBody,
+	MutationKey,
+	MutationParams,
+	MutationResponse,
+} from './types'
 
 function parseMutationKey(key: string): { method: string; path: string } {
 	const spaceIdx = key.indexOf(' ')
@@ -17,12 +22,14 @@ function parseMutationKey(key: string): { method: string; path: string } {
 
 type MutationVariables<K extends MutationKey> =
 	(MutationParams<K> extends undefined ? {} : { params: MutationParams<K> }) &
-	(MutationBody<K> extends undefined ? {} : { body: MutationBody<K> })
+		(MutationBody<K> extends undefined ? {} : { body: MutationBody<K> })
 
 function hasFiles(body: unknown): boolean {
 	if (!body || typeof body !== 'object') return false
 	return Object.values(body as Record<string, unknown>).some(
-		(v) => v instanceof File || (Array.isArray(v) && v.some((item) => item instanceof File)),
+		v =>
+			v instanceof File ||
+			(Array.isArray(v) && v.some(item => item instanceof File)),
 	)
 }
 
@@ -38,7 +45,8 @@ export function useMutation<K extends MutationKey>(
 
 	return useTanstackMutation({
 		mutationFn: async (variables: MutationVariables<K>) => {
-			const params = (variables as { params?: MutationParams<K> } | undefined)?.params
+			const params = (variables as { params?: MutationParams<K> } | undefined)
+				?.params
 			const body = (variables as { body?: MutationBody<K> } | undefined)?.body
 			const url = buildUrl(baseUrl, path, params as Record<string, string>)
 
