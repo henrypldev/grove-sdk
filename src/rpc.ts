@@ -96,6 +96,8 @@ export function buildRpcNamespaces(call: RpcCaller) {
 			tasks: (p: { id: string }) => call('teams:tasks', p),
 			notes: (p: { id: string }) => call('teams:notes', p),
 			prDescription: (p: { id: string }) => call('teams:pr-description', p),
+			createPr: (p: { id: string; title: string; body: string }) =>
+				call('teams:create-pr', p),
 			setup: {
 				retry: (p: { id: string }) => call('teams:setup:retry', p),
 				cancel: (p: { id: string }) => call('teams:setup:cancel', p),

@@ -147,6 +147,10 @@ export interface RpcMethods {
 		params: { id: string }
 		result: { title: string; body: string; branch: string; baseBranch: string }
 	}
+	'teams:create-pr': {
+		params: { id: string; title: string; body: string }
+		result: { prUrl: string }
+	}
 
 	// Teams - setup
 	'teams:setup:retry': {
