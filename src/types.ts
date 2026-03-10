@@ -143,12 +143,8 @@ export interface RpcMethods {
 	}
 	'teams:tasks': { params: { id: string }; result: AgentTask[] }
 	'teams:notes': { params: { id: string }; result: { content: string } }
-	'teams:pr-description': {
-		params: { id: string }
-		result: { title: string; body: string; branch: string; baseBranch: string }
-	}
 	'teams:create-pr': {
-		params: { id: string; title: string; body: string }
+		params: { id: string }
 		result: { prUrl: string }
 	}
 
